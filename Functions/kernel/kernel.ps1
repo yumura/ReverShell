@@ -65,3 +65,10 @@ fun call ' callable -- ' `
 
 fun ? '? true false -- true/false' {if ($_0) {,$_1} else {,$_2}} 3
 word if ' ..a ? true: ( ..a -- ..b ) false: ( ..a -- ..b ) -- ..b ' ? call
+
+# Single branch
+word when ' ..a ? true: ( ..a -- ..a ) -- ..a '`
+    swap :call :drop if
+
+word unless ' ..a ? false: ( ..a -- ..a ) -- ..a '`
+    swap :drop :call if

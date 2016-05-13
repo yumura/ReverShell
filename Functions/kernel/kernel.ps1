@@ -49,3 +49,19 @@ fun  swapd ' x y z -- y x z '   {$_1, $_0, $_2}      3
 
 word 2over ' x y z -- x y z x y ' pick pick
 fun  clear ' -- ' {param($stack) New-Object System.Collections.Stack} -IsWord
+
+
+# Combinators
+# ===========
+fun call ' callable -- ' `
+{
+    param($stack)
+
+    if ($_0 -isnot [string]) {return ,$stack | RPN @_0}
+    
+    ,$stack | RPN $_0
+
+} 1 -IsWord
+
+fun ? '? true false -- true/false' {if ($_0) {,$_1} else {,$_2}} 3
+word if ' ..a ? true: ( ..a -- ..b ) false: ( ..a -- ..b ) -- ..b ' ? call

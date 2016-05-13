@@ -87,3 +87,26 @@ Describe 'Single branch' {
         RPN $false ::f unless | ShouldBeRPN :f
     }
 }
+
+Describe Anaphoric {
+    It if* {
+        RPN $true  ::t ::f if* | ShouldBeRPN $true  dup ::t (q drop :f ) if
+        RPN $false ::t ::f if* | ShouldBeRPN $false dup ::t (q drop :f ) if
+        RPN $true  ::t ::f if* | ShouldBeRPN $true :t
+        RPN $false ::t ::f if* | ShouldBeRPN :f
+    }
+
+    It when* {
+        RPN $true  ::t when* | ShouldBeRPN $true  dup ::t :drop if
+        RPN $false ::t when* | ShouldBeRPN $false dup ::t :drop if
+        RPN $true  ::t when* | ShouldBeRPN $true  :t
+        RPN $false ::t when* | ShouldBeRPN
+    }
+
+    It unless* {
+        RPN $true  ::f unless* | ShouldBeRPN $true  dup (q ) (q drop :f ) if
+        RPN $false ::f unless* | ShouldBeRPN $false dup (q ) (q drop :f ) if
+        RPN $true  ::f unless* | ShouldBeRPN $true
+        RPN $false ::f unless* | ShouldBeRPN :f
+    }
+}

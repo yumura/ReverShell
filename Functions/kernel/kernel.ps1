@@ -25,7 +25,7 @@ foreach ($i in 2..10)
     fun $name $effect $sb $i
 }
 
-fun nip ' $_0 $_1 -- $_1 ' {$_1} 2
+fun nip ' $_0 $_1 -- $_1 ' {,$_1} 2
 foreach ($i in 2..10)
 {
     $arr = 0..$i | %{"`$_${_}"}
@@ -34,7 +34,7 @@ foreach ($i in 2..10)
 
     $name = "${i}nip"
     $effect = " ${in} -- ${out} "
-    $sb = [ScriptBlock]::Create($out)
+    $sb = [ScriptBlock]::Create(",${out}")
   
     fun $name $effect $sb ($i + 1)
 }

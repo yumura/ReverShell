@@ -37,6 +37,11 @@ Describe "Stack stuff" {
         RPN 0 1 2     2nip | ShouldBeRPN 2
         RPN 0 1 2 3   3nip | ShouldBeRPN 3
         RPN 0 1 2 3 4 4nip | ShouldBeRPN 4
+
+        RPN 0 1       (q dup dup)  nip call | ShouldBeRPN 0 0 0
+        RPN 0 1 2     (q dup dup) 2nip call | ShouldBeRPN 0 0 0
+        RPN 0 1 2 3   (q dup dup) 3nip call | ShouldBeRPN 0 0 0
+        RPN 0 1 2 3 4 (q dup dup) 4nip call | ShouldBeRPN 0 0 0
     }
 
     It "shuffle!" {

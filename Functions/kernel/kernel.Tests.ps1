@@ -75,3 +75,15 @@ Describe Combinators {
         RPN 1 $false :dup :drop if | ShouldBeRPN
     }
 }
+
+Describe 'Single branch' {
+    It when {
+        RPN $true  ::t when | ShouldBeRPN :t
+        RPN $false ::t when | ShouldBeRPN
+    }
+
+    It unless {
+        RPN $true  ::f unless | ShouldBeRPN
+        RPN $false ::f unless | ShouldBeRPN :f
+    }
+}

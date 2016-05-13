@@ -52,3 +52,26 @@ Describe "Stack stuff" {
         RPN 0 1 2 clear | ShouldBeRPN 
     }
 }
+
+Describe Combinators {
+    It call {
+        RPN 1 2 :swap call | ShouldBeRPN 2 1
+        RPN 1 2 (q dup dup ) call | ShouldBeRPN 1 2 2 2
+        RPN ::str call | ShouldBeRPN :str
+        RPN 1 2 ::swap  call call | ShouldBeRPN 2 1
+        RPN 1 2  :swap :call call | ShouldBeRPN 2 1
+    }
+
+    It ? {
+        RPN $true  :t :f ? | ShouldBeRPN :t
+        RPN $false :t :f ? | ShouldBeRPN :f
+
+        RPN ::t ::f $true  (q drop call ) (q nip call ) ? call | ShouldBeRPN :t
+        RPN ::t ::f $false (q drop call ) (q nip call ) ? call | ShouldBeRPN :f
+    }
+
+    It if {
+        RPN 1 $true  :dup :drop if | ShouldBeRPN 1 1
+        RPN 1 $false :dup :drop if | ShouldBeRPN
+    }
+}

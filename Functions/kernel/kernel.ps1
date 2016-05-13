@@ -82,3 +82,8 @@ word when* ' ..a ? true: ( ..a ? -- ..a ) -- ..a '`
 
 word unless* ' ? false -- '`
     over :drop (q nip call ) if
+
+# Default
+word ?if ' ..a default cond true: ( ..a cond -- ..b ) false: ( ..a default -- ..b ) -- ..b '`
+    pick (q drop :drop 2dip call ) (q 2nip call ) if
+    # TODO: implementation of `2dip`

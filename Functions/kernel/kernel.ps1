@@ -80,7 +80,7 @@ word if* ' ..a ? true: ( ..a ? -- ..b ) false: ( ..a -- ..b ) -- ..b '`
 word when* ' ..a ? true: ( ..a ? -- ..a ) -- ..a '`
     over :call :2drop if
 
-word unless* ' ? false -- '`
+word unless* ' ..a ? false: ( ..a -- ..a x ) -- ..a x '`
     over :drop (q nip call ) if
 
 # Default

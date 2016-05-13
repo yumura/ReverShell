@@ -110,3 +110,14 @@ Describe Anaphoric {
         RPN $false ::f unless* | ShouldBeRPN :f
     }
 }
+
+Describe default {
+    It ?if {
+        RPN $false $false :dup (q dup dup ) ?if | ShouldBeRPN $false $false dup (q nip dup ) (q drop dup dup ) if
+        RPN $false $true  :dup (q dup dup ) ?if | ShouldBeRPN $false $true  dup (q nip dup ) (q drop dup dup ) if
+
+        # TODO: Implementation of `or`
+        RPN $true  $false (q ) (q ) ?if | ShouldBeRPN $true  $false swap or
+        RPN $false $false (q ) (q ) ?if | ShouldBeRPN $false $false swap or
+    }
+}

@@ -72,3 +72,13 @@ word when ' ..a ? true: ( ..a -- ..a ) -- ..a '`
 
 word unless ' ..a ? false: ( ..a -- ..a ) -- ..a '`
     swap :drop :call if
+
+# Anaphoric
+word if* ' ..a ? true: ( ..a ? -- ..b ) false: ( ..a -- ..b ) -- ..b '`
+    pick (q drop call ) (q 2nip call ) if
+
+word when* ' ..a ? true: ( ..a ? -- ..a ) -- ..a '`
+    over :call :2drop if
+
+word unless* ' ? false -- '`
+    over :drop (q nip call ) if

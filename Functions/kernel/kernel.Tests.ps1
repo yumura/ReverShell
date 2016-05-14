@@ -167,3 +167,16 @@ Describe Keepers {
        RPN 0 1 2 (q 3 dup ) :call 4keep call | ShouldBeRPN 0 1 2 (q 3 dup ) call 0 1 2 (q 3 dup ) call
     }
 }
+
+Describe Cleavers {
+    It bi {
+        RPN 0 :drop :drop bi | ShouldBeRPN 0 dup drop drop
+        RPN 0 :drop :drop bi | ShouldBeRPN 0 :drop keep drop
+    }
+
+    It tri {
+        RPN 0 :drop :drop :drop tri | ShouldBeRPN 0 dup drop dup drop drop
+        RPN 0 :drop :drop :drop tri | ShouldBeRPN 0 :drop keep :drop keep drop
+    }
+}
+

@@ -181,3 +181,14 @@ Describe Cleavers {
     }
 }
 
+Describe DoubleCleavers {
+    It 2bi {
+        RPN 0 1 :2drop :2drop 2bi | ShouldBeRPN 0 1 2dup 2drop 2drop
+        RPN 0 1 :2drop :2drop 2bi | ShouldBeRPN 0 1 :2drop 2keep 2drop
+    }
+
+    It 2tri {
+        RPN 0 1 :2drop :2drop :2drop 2tri | ShouldBeRPN 0 1 2dup 2drop 2dup 2drop 2drop
+        RPN 0 1 :2drop :2drop :2drop 2tri | ShouldBeRPN 0 1 :2drop 2keep :2drop 2keep 2drop
+    }
+}

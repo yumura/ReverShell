@@ -153,3 +153,10 @@ word bi* ' x y p q -- '`
 
 word tri* ' x y z p q r -- '`
     (q :2dip dip dip ) dip call
+
+# Double spreaders
+word 2bi* ' w x y z p q -- '`
+    :2dip dip call
+
+word 2tri* ' u v w x y z p q r -- '`
+    :4dip 2dip 2bi*

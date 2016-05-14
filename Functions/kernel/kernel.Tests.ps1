@@ -148,3 +148,21 @@ Describe Dippers {
         RPN 0 1 2 3 (q drop drop) :dup 4dip call | ShouldBeRPN 0 0 1
     }
 }
+
+Describe Keepers {
+    It keep {
+        RPN 0 1 :swap keep | ShouldBeRPN 0 1 swap 1
+        RPN (q 0 dup ) :call keep call | ShouldBeRPN (q 0 dup ) call (q 0 dup ) call
+    }
+
+    It _keep {
+        RPN 0 1 :swap 2keep | ShouldBeRPN 0 1 swap 0 1 
+        RPN 0 (q 1 dup ) :call 2keep call | ShouldBeRPN 0 (q 1 dup ) call 0 (q 1 dup ) call
+ 
+        RPN 0 1 2 :swap 3keep | ShouldBeRPN 0 1 2 swap 0 1 2
+        RPN 0 1 (q 2 dup ) :call 3keep call | ShouldBeRPN 0 1 (q 2 dup ) call 0 1 (q 2 dup ) call
+
+       RPN 0 1 2 3 :swap 4keep | ShouldBeRPN 0 1 2 3 swap 0 1 2 3
+       RPN 0 1 2 (q 3 dup ) :call 4keep call | ShouldBeRPN 0 1 2 (q 3 dup ) call 0 1 2 (q 3 dup ) call
+    }
+}

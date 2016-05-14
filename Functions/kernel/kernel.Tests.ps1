@@ -126,3 +126,23 @@ Describe default {
         RPN $false $false (q ) (q ) ?if | ShouldBeRPN $false $false swap or
     }
 }
+
+Describe Dippers {
+    It dip {
+        RPN 0 1 :dup dip | ShouldBeRPN 0 0 1
+        RPN 0 (q drop drop) :dup dip call | ShouldBeRPN
+    }
+
+    It 2dip {
+        RPN 0 1 2 :dup 2dip | ShouldBeRPN 0 0 1 2
+        RPN 0 1 (q drop drop) :dup 2dip call | ShouldBeRPN 0
+    }
+
+    It _dip {
+        RPN 0 1 2 3 :dup 3dip | ShouldBeRPN 0 0 1 2 3
+        RPN 0 1 2 (q drop drop) :dup 3dip call | ShouldBeRPN 0 0
+
+        RPN 0 1 2 3 4 :dup 4dip | ShouldBeRPN 0 0 1 2 3 4
+        RPN 0 1 2 3 (q drop drop) :dup 4dip call | ShouldBeRPN 0 0 1
+    }
+}

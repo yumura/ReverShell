@@ -146,3 +146,10 @@ word 3bi 'x y z p q -- '`
 
 word 3tri ' x y z p q r -- '`
     (q :3keep dip 3keep ) dip call
+
+# Spreaders
+word bi* ' x y p q -- '`
+    :dip dip call
+
+word tri* ' x y z p q r -- '`
+    (q :2dip dip dip ) dip call

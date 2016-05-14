@@ -139,3 +139,10 @@ word 2bi ' x y p q -- '`
 
 word 2tri ' x y p q r -- '`
     (q :2keep dip 2keep) dip call
+
+# Triple cleavers
+word 3bi 'x y z p q -- '`
+    :3keep dip call
+
+word 3tri ' x y z p q r -- '`
+    (q :3keep dip 3keep ) dip call

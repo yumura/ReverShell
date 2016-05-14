@@ -111,3 +111,16 @@ foreach ($i in 3..10)
 
     word $name $effect swap ":${j}dip" dip
 }
+
+# Keepers
+word keep ' ..a x quot: ( ..a x -- ..b ) -- ..b x '`
+    over :call dip
+
+foreach ($i in 2..10)
+{
+    $arr = 0..($i - 1) | %{"x${_}"}
+    $k = $arr -join ' '
+    $effect = " ..a ${k} quot: ( ..a ${k} -- ..b ) -- ..b ${k} "
+
+    word "${i}keep" $effect ":${i}dup" dip "${i}dip"
+}

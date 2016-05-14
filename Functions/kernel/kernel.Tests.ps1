@@ -214,3 +214,13 @@ Describe Spreaders {
         RPN 0 1 2 :dup :drop :dup tri* | ShouldBeRPN 0 0 2 2
     }
 }
+
+Describe DoubleSpreaders {
+    It 2bi* {
+        RPN 0 1 2 3 :2dup :2drop 2bi* | ShouldBeRPN 0 1 0 1
+    }
+
+    It 2tri* {
+         RPN 0 1 2 3 4 5 :2dup :2drop :2dup 2tri* | ShouldBeRPN 0 1 0 1 4 5 4 5
+    }
+}

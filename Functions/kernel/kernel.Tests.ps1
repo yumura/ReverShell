@@ -134,6 +134,7 @@ Describe Dippers {
         RPN 0 1 :dup dip | ShouldBeRPN 0 0 1
         RPN 0 (q drop drop) :dup dip call | ShouldBeRPN
         RPN 0 1 2 :dup :drop dip dip | ShouldBeRPN 0 0 1
+        RPN | ShouldBeRPN 0 1 :drop (q drop ) dip call
     }
 
     It 2dip {

@@ -91,10 +91,11 @@ word ?if ' ..a default cond true: ( ..a cond -- ..b ) false: ( ..a default -- ..
 fun dip ' x quot -- x ' {
     param($stack)
 
+    if ($_0 -is [string]) {$_0 = ":${_0}"}
+
     if ($_1 -isnot [string]) {return ,$stack | RPN @_1 $_0}
-    if ($_0 -isnot [string]) {return ,$stack | RPN $_1 $_0}
     
-    ,$stack | RPN $_1 ":${_0}"
+    ,$stack | RPN $_1 $_0
 
 } 2 -IsWord
 

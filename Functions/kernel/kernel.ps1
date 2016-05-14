@@ -125,3 +125,10 @@ foreach ($i in 2..10)
 
     word "${i}keep" $effect ":${i}dup" dip "${i}dip"
 }
+
+# Cleavers
+word bi ' x p q -- '`
+    :keep dip call
+
+word tri ' x p q r -- '`
+    (q :keep dip keep ) dip call

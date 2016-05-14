@@ -192,3 +192,15 @@ Describe DoubleCleavers {
         RPN 0 1 :2drop :2drop :2drop 2tri | ShouldBeRPN 0 1 :2drop 2keep :2drop 2keep 2drop
     }
 }
+
+Describe TripleCleavers {
+    It 3bi {
+        RPN 0 1 2 :3drop :3drop 3bi | ShouldBeRPN 0 1 2 3dup 3drop 3drop
+        RPN 0 1 2 :3drop :3drop 3bi | ShouldBeRPN 0 1 2 :3drop 3keep 3drop
+    }
+
+    It 3tri {
+        RPN 0 1 2 :3drop :3drop :3drop 3tri | ShouldBeRPN 0 1 2 3dup 3drop 3dup 3drop 3drop
+        RPN 0 1 2 :3drop :3drop :3drop 3tri | ShouldBeRPN 0 1 2 :3drop 3keep :3drop 3keep 3drop
+    }
+}

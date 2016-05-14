@@ -87,3 +87,27 @@ word unless* ' ..a ? false: ( ..a -- ..a x ) -- ..a x '`
 word ?if ' ..a default cond true: ( ..a cond -- ..b ) false: ( ..a default -- ..b ) -- ..b '`
     pick (q drop :drop 2dip call ) (q 2nip call ) if
     # TODO: implementation of `2dip`
+
+# Dippers
+fun dip ' x quot -- x ' {
+    param($stack)
+
+    if ($_1 -isnot [string]) {return ,$stack | RPN @_1 $_0}
+    
+    ,$stack | RPN $_1 $_0    
+
+} 2 -IsWord
+
+word 2dip ' x y quot -- x y ' swap :dip dip
+
+foreach ($i in 3..10)
+{
+    $arr = 0..($i - 1) | %{"`$_${_}"}
+    $out = $arr -join ' '
+
+    $name = "${i}dip"
+    $effect = " ${out} quot -- ${out} "
+    $j = $i - 1
+
+    word $name $effect swap ":${j}dip" dip
+}

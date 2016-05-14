@@ -92,8 +92,9 @@ fun dip ' x quot -- x ' {
     param($stack)
 
     if ($_1 -isnot [string]) {return ,$stack | RPN @_1 $_0}
+    if ($_0 -isnot [string]) {return ,$stack | RPN $_1 $_0}
     
-    ,$stack | RPN $_1 $_0    
+    ,$stack | RPN $_1 ":${_0}"
 
 } 2 -IsWord
 

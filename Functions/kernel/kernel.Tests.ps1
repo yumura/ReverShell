@@ -204,3 +204,13 @@ Describe TripleCleavers {
         RPN 0 1 2 :3drop :3drop :3drop 3tri | ShouldBeRPN 0 1 2 :3drop 3keep :3drop 3keep 3drop
     }
 }
+
+Describe Spreaders {
+    It bi* {
+        RPN 0 1 :dup :drop bi* | ShouldBeRPN 0 0
+    }
+
+    It tri* {
+        RPN 0 1 2 :dup :drop :dup tri* | ShouldBeRPN 0 0 2 2
+    }
+}

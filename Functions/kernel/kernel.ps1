@@ -160,3 +160,10 @@ word 2bi* ' w x y z p q -- '`
 
 word 2tri* ' u v w x y z p q r -- '`
     :4dip 2dip 2bi*
+
+# Appliers
+word bi@ ' x y quot -- '`
+    dup bi*
+
+word tri@ ' x y z quot -- '`
+    dup dup tri*

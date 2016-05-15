@@ -234,3 +234,13 @@ Describe Appliers {
         RPN 0 1 2 :dup tri@ | ShouldBeRPN 0 0 1 1 2 2
     }
 }
+
+Describe DoubleAppliers {
+    It 2bi@ {
+        RPN 0 1 2 3 :2dup 2bi@ | ShouldBeRPN 0 1 0 1 2 3 2 3
+    }
+
+    It 2tri@ {
+        RPN 0 1 2 3 4 5 :2dup 2tri@ | ShouldBeRPN 0 1 0 1 2 3 2 3 4 5 4 5
+    }
+}

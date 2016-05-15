@@ -244,3 +244,44 @@ Describe DoubleAppliers {
         RPN 0 1 2 3 4 5 :2dup 2tri@ | ShouldBeRPN 0 1 0 1 2 3 2 3 4 5 4 5
     }
 }
+
+Describe QuotationBuilding {
+    It curry {
+        RPN 0 :dup curry call | ShouldBeRPN (q 0 dup) call
+        RPN 0 (q 1 swap) curry call | ShouldBeRPN (q 0 1 swap) call
+    }
+
+    It 2curry {
+        RPN 0 1 :swap 2curry call | ShouldBeRPN (q 0 1 swap) call
+        RPN 0 1 (q 2 :swap dip) 2curry call | ShouldBeRPN (q 0 1 2 :swap dip) call
+    }
+
+    It 3curry {
+        RPN 0 1 2 :3dup 3curry call | ShouldBeRPN (q 0 1 2 3dup) call
+        RPN 0 1 2 (q 3 :swap 2dip) 2curry call | ShouldBeRPN (q 0 1 2 3 :swap 2dip) call
+    }
+
+    It with {
+        $param, $obj, $A, $B = ':x', ':y', '2dup', 'call'
+        RPN $param $obj (q $A ) with $B | ShouldBeRPN $obj (q $param swap $A ) $B
+    }
+
+    It 2with {
+        $param1, $param2, $obj, $A, $B = ':x', ':y', ':z', '3dup', 'call'
+        RPN $param1 $param2 $obj (q $A ) 2with $B | ShouldBeRPN $obj (q $param1 $param2 rot $A ) $B
+    }
+
+    It compose {
+        $A, $B = 'dup', 'drop'
+
+        RPN 0 (q $A ) (q $B ) compose call | ShouldBeRPN 0 (q $A $B ) call
+        RPN 0 :$A :$B compose call | ShouldBeRPN 0 (q $A $B ) call
+    }
+
+    It prepose {
+        $A, $B = 'drop', 'dup'
+
+        RPN 0 (q $A ) (q $B ) prepose call | ShouldBeRPN 0 (q $B $A ) call
+        RPN 0 :$A :$B prepose call | ShouldBeRPN 0 (q $B $A ) call
+    }
+}

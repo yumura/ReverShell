@@ -174,3 +174,32 @@ word 2bi@ ' w x y z quot -- '`
 
 word 2tri@ ' u v w x y z quot -- '`
     dup dup 2tri*
+
+# Quotation building
+fun curry ' obj quot -- curry '`
+    {(q $_0 $_1 call )} 2
+
+foreach ($i in 2..10)
+{
+    $arr = 0..$i | %{"`$_${_}"}
+    $in = $arr -join ' '
+    $effect = " ${in} -- curry "
+    $sb = [ScriptBlock]::Create("(q ${in} call )")
+
+    fun "${i}curry" $effect $sb ($i + 1)
+}
+
+word with ' param obj quot -- obj curry '`
+    swapd (q swapd call ) 2curry
+
+word 2with ' param1 param2 obj quot -- obj curry '`
+    with with
+
+fun compose ' quot1 quot2 -- compose ' {
+    if ($_0 -is [string]) {$_0 = (q $_0 call)}
+    if ($_1 -is [string]) {$_1 = (q $_1 call)}
+    ,(q @_0 @_1)
+} 2
+
+word prepose ' quot1 quot2 -- compose '`
+    swap compose

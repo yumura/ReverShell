@@ -167,10 +167,3 @@ word bi@ ' x y quot -- '`
 
 word tri@ ' x y z quot -- '`
     dup dup tri*
-
-# Double appliers
-word 2bi@ ' w x y z quot -- '`
-    dup 2bi*
-
-word 2tri@ ' u v w x y z quot -- '`
-    dup dup 2tri*

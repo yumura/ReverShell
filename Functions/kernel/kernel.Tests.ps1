@@ -224,3 +224,13 @@ Describe DoubleSpreaders {
          RPN 0 1 2 3 4 5 :2dup :2drop :2dup 2tri* | ShouldBeRPN 0 1 0 1 4 5 4 5
     }
 }
+
+Describe Appliers {
+    It bi@ {
+        RPN 0 1 :dup bi@ | ShouldBeRPN 0 0 1 1
+    }
+
+    It tri@ {
+        RPN 0 1 2 :dup tri@ | ShouldBeRPN 0 0 1 1 2 2
+    }
+}

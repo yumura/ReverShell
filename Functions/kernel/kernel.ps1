@@ -203,3 +203,22 @@ fun compose ' quot1 quot2 -- compose ' {
 
 word prepose ' quot1 quot2 -- compose '`
     swap compose
+
+# Curried cleavers
+fun bi-curry " x p q -- p' q' "`
+    {(q $_0 $_1 call), (q $_0 $_2 call)} 3
+
+fun tri-curry " x p q r -- p' q' r' "`
+    {(q $_0 $_1 call), (q $_0 $_2 call), (q $_0 $_3 call)} 4
+
+fun bi-curry* " x y p q -- p' q' "`
+    {(q $_0 $_2 call), (q $_1 $_3 call)} 4
+
+fun tri-curry* " x y z p q r -- p' q' r' "`
+    {(q $_0 $_3 call), (q $_1 $_4 call), (q $_2 $_5 call)} 6
+
+fun bi-curry@ " x y q -- p' q' "`
+    {(q $_0 $_2 call), (q $_1 $_2 call)} 3
+
+fun tri-curry@ " x y z q -- p' q' r' "`
+    {(q $_0 $_3 call), (q $_1 $_3 call), (q $_2 $_3 call)} 4

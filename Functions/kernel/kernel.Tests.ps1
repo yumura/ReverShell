@@ -285,3 +285,75 @@ Describe QuotationBuilding {
         RPN 0 :$A :$B prepose call | ShouldBeRPN 0 (q $B $A ) call
     }
 }
+
+Describe CurriedCleavers {
+    It bi-curry {
+        $x, $y, $z = 0, 1, 2
+        $A1, $B1 =  'dup',  'drop'
+        $A2, $B2 = '2dup', '2drop'
+        $A3, $B3 = '3dup', '3drop'
+
+        RPN $x (q $A1 ) (q $B1 ) bi-curry :call bi@ | ShouldBeRPN $x (q $A1 ) (q $B1 ) bi
+        RPN $x $y    (q $A2 ) (q $B2 ) bi-curry bi | ShouldBeRPN $x $y    (q $A2 ) (q $B2 ) 2bi
+        RPN $x $y $z (q $A3 ) (q $B3 ) bi-curry bi-curry bi | ShouldBeRPN $x $y $z (q $A3 ) (q $B3 ) 3bi
+        RPN $x $y $z (q $A2 ) (q $B2 ) bi-curry bi* | ShouldBeRPN $x $z $y $z (q $A2 ) (q $B2 ) 2bi*
+
+        RPN $x :$A1 :$B1 bi-curry :call bi@ | ShouldBeRPN $x :$A1 :$B1 bi
+        RPN $x $y    :$A2 :$B2 bi-curry bi | ShouldBeRPN $x $y    :$A2 :$B2 2bi
+        RPN $x $y $z :$A3 :$B3 bi-curry bi-curry bi | ShouldBeRPN $x $y $z :$A3 :$B3 3bi
+        RPN $x $y $z :$A2 :$B2 bi-curry bi* | ShouldBeRPN $x $z $y $z :$A2 :$B2 2bi*
+    }
+
+    It tri-curry {
+        $x, $y, $z = 0, 1, 2
+        $A1, $B1, $C1 =  'dup',  'drop',  'dup'
+        $A2, $B2, $C2 = '2dup', '2drop', '2dup'
+        $A3, $B3, $C3 = '3dup', '3drop', '3dup'
+
+        RPN $x (q $A1 ) (q $B1 ) (q $C1 ) tri-curry :call tri@ | ShouldBeRPN $x (q $A1 ) (q $B1 ) (q $C1 ) tri
+        RPN $x $y (q $A2 ) (q $B2 ) (q $C2 ) tri-curry tri | ShouldBeRPN $x $y (q $A2 ) (q $B2 ) (q $C2 ) 2tri
+        RPN $x $y $z (q $A3 ) (q $B3 ) (q $C3 ) tri-curry tri-curry tri | ShouldBeRPN $x $y $z (q $A3 ) (q $B3 ) (q $C3 ) 3tri
+
+        RPN $x :$A1 :$B1 :$C1 tri-curry :call tri@ | ShouldBeRPN $x :$A1 :$B1 :$C1 tri
+        RPN $x $y :$A2 :$B2 :$C2 tri-curry tri | ShouldBeRPN $x $y :$A2 :$B2 :$C2 2tri
+        RPN $x $y $z :$A3 :$B3 :$C3 tri-curry tri-curry tri | ShouldBeRPN $x $y $z :$A3 :$B3 :$C3 3tri
+    }
+
+    It bi-curry* {
+        $x, $y, $z = 0, 1, 2
+        $A1, $B1, $C1 =  'dup',  'drop',  'dup'
+        
+        RPN $x $y (q $A1 ) (q $B1 ) bi-curry* :call bi@ | ShouldBeRPN $x $y (q $A1 ) (q $B1 ) bi*
+        RPN $x $y $z (q $A1 ) (q $B1 ) bi-curry* bi | ShouldBeRPN $x $y $z :over dip (q $A1 ) (q $B1 ) 2bi*
+
+        RPN $x $y :$A1 :$B1 bi-curry* :call bi@ | ShouldBeRPN $x $y :$A1 :$B1 bi*
+        RPN $x $y $z :$A1 :$B1 bi-curry* bi | ShouldBeRPN $x $y $z :over dip :$A1 :$B1 2bi*
+    }
+
+    It tri-curry* {
+        $x, $y, $z, $w = 0, 1, 2, 3
+        $A1, $B1, $C1 =  'dup',  'drop',  'dup'
+        $A2, $B2, $C2 = '2dup', '2drop', '2dup'
+
+        RPN $x $y $z (q $A1 ) (q $B1 ) (q $C1 ) tri-curry* :call tri@ | ShouldBeRPN $x $y $z (q $A1 ) (q $B1 ) (q $C1 ) tri*
+        RPN $x $y $z $w (q $A2 ) (q $B2 ) (q $C2 ) tri-curry* tri | ShouldBeRPN $x $y $z $w (q :over dip over ) dip (q $A2 ) (q $B2 ) (q $C2 ) 2tri*
+
+        RPN $x $y $z $w :$A2 :$B2 :$C2 tri-curry* :call tri@ | ShouldBeRPN $x $y $z $w :$A2 :$B2 :$C2 tri*
+        RPN $x $y $z $w :$A2 :$B2 :$C2 tri-curry* tri | ShouldBeRPN $x $y $z $w (q :over dip over ) dip :$A2 :$B2 :$C2 2tri*
+    }
+
+    It bi-curry@ {
+        $x, $y = 0, 1
+        $A = 'dup'
+
+        RPN $x $y (q $A ) bi-curry@ :call bi@ | ShouldBeRPN $x $y (q $A ) (q $A ) bi-curry* :call bi@
+        RPN $x $y :$A bi-curry@ :call bi@ | ShouldBeRPN $x $y :$A :$A bi-curry* :call bi@
+    }
+
+    It tri-curry@ {
+        $x, $y, $z = 0, 1, 2
+        $A = 'dup'
+
+        RPN $x $y $z (q $A ) tri-curry@ :call tri@ | ShouldBeRPN $x $y $z (q $A ) (q $A ) (q $A ) tri-curry* :call tri@
+    }
+}
